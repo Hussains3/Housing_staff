@@ -93,12 +93,14 @@ const SideBar = ({ children }) => {
                 {routes.map((route, index) => {
                   if (route.subRoutes) {
                     return (
+                      <>
                       <SidebarMenu
                         setIsOpen={setIsOpen}
                         route={route}
                         showAnimation={showAnimation}
                         isOpen={isOpen}
                       />
+                      </>
                     );
                   }
 

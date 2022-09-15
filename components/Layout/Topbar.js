@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { logout } from "apis/auth";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuth } from "providers/AuthProvider";
 import { toast } from "react-toastify";
@@ -26,7 +27,7 @@ export default function Topbar({ buttonAction, isOpen }) {
   return (
     <div className="topbar px-2 shadow d-flex justify-content-between align-items-center">
       <div className="d-flex">
-        <img className="logo" src="/img/logo.png" />
+        <Image height={40} width={160} alt='' className="logo" src="/img/logo.png" />
         <div className="px-4"></div>
 
         <Icon

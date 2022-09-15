@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import axios from "apis/axios";
 import withAuth from "HOC/withAuth";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -62,14 +63,14 @@ function Conversation() {
       const res = await axios.delete(`/support_conversations/${pid}`);
       toast.success("Conversation delete.");
       router.back();
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const handleSolved = async () => {
     try {
       const res = await axios.get(`support_conversations/${pid}/resolve`);
       setConversationInfo({ ...conversationInfo, status: "solved" });
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const handleRefresh = () => {
@@ -124,7 +125,10 @@ function Conversation() {
                       <div key={item.id} className="row">
                         <div className="d-flex align-items-center mb-3">
                           <div className="convo-user-img-container">
-                            <img
+                            <Image
+                              width={50}
+                              height={50}
+                              alt=''
                               src={
                                 item.senderable?.media?.length
                                   ? item.senderable.media[0].original_url
@@ -136,8 +140,8 @@ function Conversation() {
                             <h6 className="mb-0">
                               {item.senderable.name ??
                                 item.senderable.fname +
-                                  " " +
-                                  item.senderable.lname}
+                                " " +
+                                item.senderable.lname}
                             </h6>
                             <small className="text-muted">
                               {new Date(item.created_at).toLocaleDateString()}
@@ -151,32 +155,38 @@ function Conversation() {
                         )}
                         {item.attachments.length
                           ? item.attachments.map((attachment, index) => {
-                              if (
-                                attachment.original.split(".").pop() == "pdf"
-                              ) {
-                                return (
-                                  <Link href={attachment.original}>
+                            if (
+                              attachment.original.split(".").pop() == "pdf"
+                            ) {
+                              return (
+                                <>
+                                  <Link href='{attachment.original}'  >
                                     <a className="d-inline">
                                       <u>
                                         {attachment.original.split("/").pop()}
                                       </u>
                                     </a>
                                   </Link>
-                                );
-                              } else {
-                                return (
-                                  <img
-                                    onClick={() => {
-                                      setShowLightbox(true);
-                                      setLightboxImage(attachment.original);
-                                    }}
-                                    className="convo-attachment mb-3 cursor-pointer"
-                                    key={index}
-                                    src={attachment.thumb}
-                                  />
-                                );
-                              }
-                            })
+
+                                </>
+
+
+                              );
+                            } else {
+                              return (
+                                <Image
+                                  alt=""
+                                  onClick={() => {
+                                    setShowLightbox(true);
+                                    setLightboxImage(attachment.original);
+                                  }}
+                                  className="convo-attachment mb-3 cursor-pointer"
+                                  key={index}
+                                  src={attachment.thumb}
+                                />
+                              );
+                            }
+                          })
                           : ""}
                         <hr />
                       </div>
@@ -241,13 +251,12 @@ function Conversation() {
                         <td>
                           {conversationInfo ? (
                             <small
-                              className={`px-3 ${
-                                conversationInfo.status == "waiting"
+                              className={`px-3 ${conversationInfo.status == "waiting"
                                   ? "bg-blue"
                                   : conversationInfo.status == "active"
-                                  ? "bg-green"
-                                  : "bg-purple"
-                              } rounded-3`}
+                                    ? "bg-green"
+                                    : "bg-purple"
+                                } rounded-3`}
                             >
                               {conversationInfo.status}
                             </small>

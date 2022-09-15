@@ -1,6 +1,7 @@
 import axios from "apis/axios";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import Image from "next/image";
 
 export default function Overview() {
   const [data, setData] = useState(null);
@@ -19,7 +20,7 @@ export default function Overview() {
               <h3 className="fw-bold">{data?.total_users || <Skeleton />}</h3>
             </div>
             <div>
-              <img src="/img/user.png" height={50} />
+              <Image src="/img/user.png" height={50} width={50} alt='' />
             </div>
           </div>
         </div>
@@ -34,7 +35,7 @@ export default function Overview() {
               </h3>
             </div>
             <div>
-              <img src="/img/application.png" height={50} />
+              <Image src="/img/application.png" height={50} width={50} alt='' />
             </div>
           </div>
         </div>
@@ -49,7 +50,7 @@ export default function Overview() {
               </h3>
             </div>
             <div>
-              <img src="/img/subdivision.png" height={50} />
+              <Image src="/img/subdivision.png" height={50} width={50} alt='' />
             </div>
           </div>
         </div>
@@ -64,7 +65,7 @@ export default function Overview() {
               </h3>
             </div>
             <div>
-              <img src="/img/housing-model.png" height={50} />
+              <Image src="/img/housing-model.png"  height={50} width={50} alt='' />
             </div>
           </div>
         </div>
